@@ -1,0 +1,42 @@
+%{#include<stdio.h>
+int i;
+%}keyword main|int|scanf|printf|if|else
+%%
+
+{keyword} {
+ for(i=0;i<yyleng;i++)
+ printf("%c",toupper(yytext[i]));
+   }
+%%
+
+main()
+{
+yyin=fopen("num.c","r");
+yylex();
+}
+
+int yywrap()
+{
+return 1;
+}
+
+
+"""OutputLet num.c contains following program fragment.
+
+main()
+{
+int num;
+scanf("%d",&num);
+if(num%2)printf("Odd");
+else printf("Even")
+}
+
+The output will be,
+
+MAIN()
+{
+INT num;
+SCANF("%d",&num);
+IF(num%2)PRINTF("Odd");
+ELSE PRINTF("Even")
+}"""
